@@ -3,8 +3,8 @@
 /************************* PRINTING CHARACTER *************************/
 
 /**
- * print_characters - Prints a characters
- * @checks: List a of arguments
+ * print_char - Prints a char
+ * @types: List a of arguments
  * @buffer: Buffer array to handle print
  * @flags:  Calculates active flags
  * @width: Width
@@ -12,10 +12,10 @@
  * @size: Size specifier
  * Return: Number of chars printed
  */
-int print_characters(va_list checks, char buffer[],
+int print_char(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	char c = va_arg(checks, int);
+	char c = va_arg(types, int);
 
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
@@ -47,10 +47,13 @@ int print_string(va_list types, char buffer[],
 		if (precision >= 6)
 			str = "      ";
 	}
+
 	while (str[length] != '\0')
 		length++;
+
 	if (precision >= 0 && precision < length)
 		length = precision;
+
 	if (width > length)
 	{
 		if (flags & F_MINUS)
@@ -62,16 +65,13 @@ int print_string(va_list types, char buffer[],
 		}
 		else
 		{
-			i = width - length;
-			while (i > 0)
-			{
+			for (i = width - length; i > 0; i--)
 				write(1, " ", 1);
-				i--;
-			}
 			write(1, &str[0], length);
 			return (width);
 		}
 	}
+
 	return (write(1, str, length));
 }
 /************************* PRINT PERCENT SIGN *************************/
@@ -85,7 +85,7 @@ int print_string(va_list types, char buffer[],
  * @size: Size specifier
  * Return: Number of chars printed
  */
-int print_percentage_sign(va_list types, char buffer[],
+int print_percent(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	UNUSED(types);
@@ -108,13 +108,13 @@ int print_percentage_sign(va_list types, char buffer[],
  * @size: Size specifier
  * Return: Number of chars printed
  */
-int print_integer(va_list types, char buffer[],
+int print_int(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	int i = BUFF_SIZE - 2;
 	int is_negative = 0;
 	long int n = va_arg(types, long int);
-	unsigned long int number;
+	unsigned long int num;
 
 	n = convert_size_number(n, size);
 
@@ -122,18 +122,18 @@ int print_integer(va_list types, char buffer[],
 		buffer[i--] = '0';
 
 	buffer[BUFF_SIZE - 1] = '\0';
-	number = (unsigned long int)n;
+	num = (unsigned long int)n;
 
 	if (n < 0)
 	{
-		number = (unsigned long int)((-1) * n);
+		num = (unsigned long int)((-1) * n);
 		is_negative = 1;
 	}
 
-	while (number > 0)
+	while (num > 0)
 	{
-		buffer[i--] = (number % 10) + '0';
-		number /= 10;
+		buffer[i--] = (num % 10) + '0';
+		num /= 10;
 	}
 
 	i++;
@@ -150,9 +150,9 @@ int print_integer(va_list types, char buffer[],
  * @width: get width.
  * @precision: Precision specification
  * @size: Size specifier
- * Return: Numbe:wqrs of char printed.
+ * Return: Numbers of char printed.
  */
-int print_binary_values(va_list types, char buffer[],
+int print_binary(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	unsigned int n, m, i, sum;
