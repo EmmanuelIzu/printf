@@ -13,9 +13,10 @@ int get_flags(const char *format, int *i)
 	int j, current_value;
 	int flags = 0;
 	const char FLAGS_CHARACTER[] = {'-', '+', '0', '#', ' ', '\0'};
-	const int FLAGS_ARRAY[] = {FUNCTION_MINUS, FUNCTION_PLUS, FUNCTION_ZERO, FUNCTION_HASH, FUNCTION_SPACE, 0};
+	const int FLAGS_ARRAY[] = {FUNCTION_MINUS, FUNCTION_PLUS,
+		FUNCTION_ZERO, FUNCTION_HASH, FUNCTION_SPACE, 0};
 
-	current_value = *i + 1; 
+	current_value = *i + 1;
 	while (format[current_value] != '\0')
 	{
 		for (j = 0; FLAGS_CHARACTER[j] != '\0'; j++)
