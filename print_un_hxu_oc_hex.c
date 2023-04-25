@@ -1,6 +1,6 @@
 #include "main.h"
 
-/************************* PRINT UNSIGNED NUMBER *************************/
+/****** PRINT UNSIGNED NUMBER TO CONSOLE *********/
 /**
  * print_unsigned - Prints an unsigned number
  * @types: List a of arguments
@@ -14,7 +14,7 @@
 int print_unsigned(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 
 	num = convert_size_unsgnd(num, size);
@@ -22,7 +22,7 @@ int print_unsigned(va_list types, char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -35,7 +35,7 @@ int print_unsigned(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
-/************* PRINT UNSIGNED NUMBER IN OCTAL  ****************/
+/************* PRINT UNSIGNED NUMBER IN OCTAL TO CONSOLE****************/
 /**
  * print_octal - Prints an unsigned number in octal notation
  * @types: Lista of arguments
@@ -50,7 +50,7 @@ int print_octal(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 
-	int i = BUFF_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
@@ -61,7 +61,7 @@ int print_octal(va_list types, char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -69,7 +69,7 @@ int print_octal(va_list types, char buffer[],
 		num /= 8;
 	}
 
-	if (flags & F_HASH && init_num != 0)
+	if (flags & FUNCTION_HASH && init_num != 0)
 		buffer[i--] = '0';
 
 	i++;
@@ -77,7 +77,7 @@ int print_octal(va_list types, char buffer[],
 	return (write_unsgnd(0, i, buffer, flags, width, precision, size));
 }
 
-/************** PRINT UNSIGNED NUMBER IN HEXADECIMAL **************/
+/************** PRINT HEXADECIMAL **************/
 /**
  * print_hexadecimal - Prints an unsigned number in hexadecimal notation
  * @types: Lista of arguments
@@ -95,7 +95,7 @@ int print_hexadecimal(va_list types, char buffer[],
 		flags, 'x', width, precision, size));
 }
 
-/************* PRINT UNSIGNED NUMBER IN UPPER HEXADECIMAL **************/
+/************* PRINT UPPER HEXADECIMAL **************/
 /**
  * print_hexa_upper - Prints an unsigned number in upper hexadecimal notation
  * @types: Lista of arguments
@@ -113,7 +113,7 @@ int print_hexa_upper(va_list types, char buffer[],
 		flags, 'X', width, precision, size));
 }
 
-/************** PRINT HEXX NUM IN LOWER OR UPPER **************/
+/************** PRINT HEXDECIMAL NUMBER IN LOWER OR UPPER TO CONSOLE **************/
 /**
  * print_hexa - Prints a hexadecimal number in lower or upper
  * @types: Lista of arguments
@@ -130,7 +130,7 @@ int print_hexa_upper(va_list types, char buffer[],
 int print_hexa(va_list types, char map_to[], char buffer[],
 	int flags, char flag_ch, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	unsigned long int num = va_arg(types, unsigned long int);
 	unsigned long int init_num = num;
 
@@ -141,7 +141,7 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 	if (num == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 
 	while (num > 0)
 	{
@@ -149,7 +149,7 @@ int print_hexa(va_list types, char map_to[], char buffer[],
 		num /= 16;
 	}
 
-	if (flags & F_HASH && init_num != 0)
+	if (flags & FUNCTION_HASH && init_num != 0)
 	{
 		buffer[i--] = flag_ch;
 		buffer[i--] = '0';

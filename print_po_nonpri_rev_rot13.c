@@ -15,7 +15,7 @@ int print_pointer(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
 	char extra_c = 0, padd = ' ';
-	int ind = BUFF_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
+	int ind = BUFFER_SIZE - 2, length = 2, padd_start = 1; /* length=2, for '0x' */
 	unsigned long num_addrs;
 	char map_to[] = "0123456789abcdef";
 	void *addrs = va_arg(types, void *);
@@ -26,7 +26,7 @@ int print_pointer(va_list types, char buffer[],
 	if (addrs == NULL)
 		return (write(1, "(nil)", 5));
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 	UNUSED(precision);
 
 	num_addrs = (unsigned long)addrs;
@@ -38,11 +38,11 @@ int print_pointer(va_list types, char buffer[],
 		length++;
 	}
 
-	if ((flags & F_ZERO) && !(flags & F_MINUS))
+	if ((flags & FUNCTION_ZERO) && !(flags & FUNCTION_MINUS))
 		padd = '0';
-	if (flags & F_PLUS)
+	if (flags & FUNCTION_PLUS)
 		extra_c = '+', length++;
-	else if (flags & F_SPACE)
+	else if (flags & FUNCTION_SPACE)
 		extra_c = ' ', length++;
 
 	ind++;
@@ -52,7 +52,7 @@ int print_pointer(va_list types, char buffer[],
 		width, flags, padd, extra_c, padd_start));
 }
 
-/************************* PRINT NON PRINTABLE *************************/
+/******** PRINT NON PRINTABLE INPUTS TO CONSOLE*************/
 /**
  * print_non_printable - Prints ascii codes in hexa of non printable chars
  * @types: Lista of arguments
@@ -92,7 +92,7 @@ int print_non_printable(va_list types, char buffer[],
 	return (write(1, buffer, i + offset));
 }
 
-/************************* PRINT REVERSE *************************/
+/******* PRINT REVERSE STRING********/
 /**
  * print_reverse - Prints reverse string.
  * @types: Lista of arguments
@@ -135,7 +135,7 @@ int print_reverse(va_list types, char buffer[],
 	}
 	return (count);
 }
-/************************* PRINT A STRING IN ROT13 *************************/
+/********* PRINT IN ROT13 *****/
 /**
  * print_rot13string - Print a string in rot13.
  * @types: Lista of arguments

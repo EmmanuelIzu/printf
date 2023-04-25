@@ -19,7 +19,7 @@ int print_characters(va_list checks, char buffer[],
 
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
-/************************* PRINT A STRING *************************/
+/********* PRINT A STRING INPUT TO CONSOLE************/
 /**
  * print_string - Prints a string
  * @types: List a of arguments
@@ -53,7 +53,7 @@ int print_string(va_list types, char buffer[],
 		length = precision;
 	if (width > length)
 	{
-		if (flags & F_MINUS)
+		if (flags & FUNCTION_MINUS)
 		{
 			write(1, &str[0], length);
 			for (i = width - length; i > 0; i--)
@@ -74,9 +74,9 @@ int print_string(va_list types, char buffer[],
 	}
 	return (write(1, str, length));
 }
-/************************* PRINT PERCENT SIGN *************************/
+/******** PRINT PERCENTAGE SIGN **************/
 /**
- * print_percent - Prints a percent sign
+ * print_percentage_sign - Prints a percent sign
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
  * @flags:  Calculates active flags
@@ -97,9 +97,9 @@ int print_percentage_sign(va_list types, char buffer[],
 	return (write(1, "%%", 1));
 }
 
-/************************* PRINT INT *************************/
+/*********** PRINT INT ***********/
 /**
- * print_int - Print int
+ * print_integer - Print int
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
  * @flags:  Calculates active flags
@@ -111,7 +111,7 @@ int print_percentage_sign(va_list types, char buffer[],
 int print_integer(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	int i = BUFF_SIZE - 2;
+	int i = BUFFER_SIZE - 2;
 	int is_negative = 0;
 	long int n = va_arg(types, long int);
 	unsigned long int number;
@@ -121,7 +121,7 @@ int print_integer(va_list types, char buffer[],
 	if (n == 0)
 		buffer[i--] = '0';
 
-	buffer[BUFF_SIZE - 1] = '\0';
+	buffer[BUFFER_SIZE - 1] = '\0';
 	number = (unsigned long int)n;
 
 	if (n < 0)
@@ -141,9 +141,9 @@ int print_integer(va_list types, char buffer[],
 	return (write_number(is_negative, i, buffer, flags, width, precision, size));
 }
 
-/************************* PRINT BINARY *************************/
+/************* PRINT BINARY *********/
 /**
- * print_binary - Prints an unsigned number
+ * print_binary_values - Prints an unsigned number
  * @types: Lista of arguments
  * @buffer: Buffer array to handle print
  * @flags:  Calculates active flags
